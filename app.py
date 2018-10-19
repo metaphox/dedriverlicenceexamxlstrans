@@ -41,8 +41,11 @@ def translate_sheet(current_wb):
             else:
                 ger_ws_value = ger_ws_value.strip() + u'\n'
             if j <= 4:
-                chn_txt = strip_eng(unicode(c.value))
-                ger_ws_value = ger_ws_value + chn_txt
+                try:
+                    chn_txt = strip_eng(unicode(c.value))
+                    ger_ws_value = ger_ws_value + chn_txt
+                except TypeError as e:
+                    print '!!! failed to translate', c.value, type(c.value)
             else:
                 ger_ws_value = c.value
             ger_ws.cell(i, j).value = ger_ws_value
